@@ -1,0 +1,85 @@
+
+
+---- Aumentando a performance.
+
+Imagine voçe com uma banco de dados onde existe 700000 mulheres e 300000 homens. 
+Você quer buscar todas as mulheres OU todos os clientes da cidade do rio de janeiro. 
+Sendo que existem diversas cidades no banco.
+Você deve fazer: 
+
+	SELECT nome, sexo, cidade 
+	FROM clientes 
+	WHERE sexo = "F" OR cidade like "Rio de Janeiro";
+
+Neste caso a performance será melhor, pois a probabilidade do registro ser retornado é 
+70% maior quando o sexo for Feminino. Quando for do sexo masculino, o sistema irá verificar a cidade 
+com o LIKE que é um operador "pesado".  
+Ou seja, o banco fará 700000 testes (verificando se é feminino) e 300000 x 2 (600000 = 300000 se é feminino e 300000 se é do RJ) testes.
+
+
+
+
+--- Valor Nulo. 
+
+Não há como filtrar valores nulos... 
+ou seja, não há como fazer  "select nome, telefone from ....  where cpf = NULL".
+Para qualque banco utilizamos o operador "is", ou seja: 
+"Select nome, email, telefone from ... where email is NULL". 
+
+
+
+
+---Remodelando a tabela cliente. 
+
+E se precisarmos agrupar por cidade? Como o endereço está todo em uma único atributo, não é possível agrupar por endereço. 
+
+1ª forma normal: 
+- Todo campo vetorizado deve se tornar uma outra tabela.   Exemplo: Telefones: tel1 - tel2 -tel3 
+- Todo campo multivalorado deve se tornar uma outra tabela. Exemplo: Endereço: Rua, cidade, bairro
+- 
+
+
+
+
+//*** MODELANDO UMA NOVA BASE **//
+
+create database comercio;
+
+use comercio;
+
+create table cliente(
+	id_cliente int primary key auto_increment,
+	nome varchar(30) not null,
+	sexo enum('M', 'F') not null,
+	email varchar(50) unique,
+	cpf varchar(15) unique
+);
+
+create table telefone(
+	id_telefone int primary key auto_increment,
+	tipo enum('com', 'res', 'cel'),
+	numero varchar(10),
+	id_cliente int,
+	foreing key (id_cliente)
+	references cliente(id_cliente)
+);
+
+create table endereco(
+	id_endereco int primary key auto_increment,
+	bairro varchar(30) not null,
+	cidade varchar(30) not null,
+	estado char(2) not null,
+	id_cliente int unique,
+	foreign key(id_cliente)
+	references cliente(id_cliente)
+);
+
+//** Foreing Key
+
+-- Teoricamente em relacionamentos UM para UM a chave estrangeira fica na tabela mais "fraca".. Exemplo tblEndereco ao invés de tblCliente.
+
+-- Em relacionamentos UM para N a fk fica na tabela N. 
+exemplo:  tblContato ao invés de tblCliente.
+
+--
+

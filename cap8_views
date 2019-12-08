@@ -1,0 +1,16 @@
+
+Trabalhando com Views: 
+
+-- Criando consulta completa: 
+
+Select c.nome, c.sexo, ifnull(c.email,'SEM EMAIL') as email, t.tipo, t.numero, e.bairro, e.cidade, e.estado  from cliente c  join telefone t  on c.idcliente = t.id_cliente join endereco e  on c.idcliente = e.id_cliente;
+
+
+** Criamos uma visão, para facilitar a consulta de dados que normalmente é realizada através de grandes queries. 
+
+create view relatorios as ( 
+	Select c.nome, c.sexo, ifnull(c.email,'SEM EMAIL') as email, t.tipo, t.numero, e.bairro, e.cidade, e.estado  from cliente c  join telefone t  on c.idcliente = t.id_cliente join endereco e  on c.idcliente = e.id_cliente;
+)
+
+"É uma boa pratica colocar o prefixo 'v_' indicando que o elemento é uma view".
+

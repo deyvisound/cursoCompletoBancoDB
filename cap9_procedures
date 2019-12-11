@@ -1,0 +1,15 @@
+
+Procedures: 
+
+Pense na arquitetura MVC(Model, View, Controller). 
+
+Procedures possuem pontos fortes e pontos fracos. 
+
+pontos franco: 
+ - Eliminamos a regra de negócio da aplicação. (as vezes é um ponto forte)
+ - Migração mais complexo.
+
+
+Começando. 
+
+OBS: Sempre que for criar uma procedure, utilizar o DELIMITER para alterar os delimitadores que indicarão o início e o fim da procedure. 

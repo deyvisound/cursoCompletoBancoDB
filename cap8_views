@@ -14,3 +14,8 @@ create view relatorios as (
 
 "É uma boa pratica colocar o prefixo 'v_' indicando que o elemento é uma view".
 
+
+
+***Alterando o "delimiter"
+- Alterando para $  "delimiter $"
+- Conseguimos ver qual o delimiter atual utilizando o comando "status". 

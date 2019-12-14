@@ -1,0 +1,11 @@
+
+
+MAX(), retorna o valor máximo de uma coluna. 
+
+MIN(), retorna o valor mínimo de uma coluna,
+
+AVG(), retorna a média de uma coluna, 
+
+TRUNCATE(), trunca o número para um determinado numero de casas decimais. 
+
+SUM(), soma os valores de uma determinada coluna.

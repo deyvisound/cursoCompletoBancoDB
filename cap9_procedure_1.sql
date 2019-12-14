@@ -23,3 +23,4 @@ BEGIN
 	SELECT n1+n2 as "CONTA";
 END
 $
+
